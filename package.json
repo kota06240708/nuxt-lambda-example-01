@@ -6,17 +6,20 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
-    "build": "nuxt build",
+    "build": "cross-env NODE_ENV=production nuxt build",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
     "cross-env": "^5.2.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "nuxt": "^2.0.0",
+    "serverless-http": "^2.3.2",
+    "serverless-offline": "^6.1.4",
+    "serverless-s3-sync": "^1.13.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9",
-    "@nuxt/typescript-build": "^0.6.0"
+    "@nuxt/typescript-build": "^0.6.0",
+    "nodemon": "^1.18.9"
   }
 }

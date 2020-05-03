@@ -1,35 +1,31 @@
 const express = require('express')
-const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt')
+const { Nuxt } = require('nuxt')
+const serverless = require('serverless-http')
+// Add Nuxt
+let nuxtConfig = require('../nuxt.config.js')
+
+const config = {
+  dev: false,
+  ...nuxtConfig
+}
+
+const nuxt = new Nuxt(config)
+
 const app = express()
 
-// Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
-config.dev = process.env.NODE_ENV !== 'production'
+app.use('/_nuxt', (req, res) =>
+  res.redirect(process.env.ASSETS_BUCKET_URL + req.path)
+)
 
-async function start () {
-  // Init Nuxt.js
-  const nuxt = new Nuxt(config)
+app.use('/static', (req, res) =>
+  res.redirect(process.env.STATIC_BUCKET_URL + req.path)
+)
 
-  const { host, port } = nuxt.options.server
-
+app.use(async (req, res, next) => {
   await nuxt.ready()
-  // Build only in dev mode
-  if (config.dev) {
-    const builder = new Builder(nuxt)
-    await builder.build()
-  }
 
-  // Give nuxt middleware to express
-  app.use(nuxt.render)
+  req.url = `${nuxtConfig.router.base}${req.url}`.replace('//', '/')
+  nuxt.render(req, res, next)
+})
 
-  console.log('sssss')
-
-  // Listen the server
-  app.listen(port, host)
-  consola.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
-  })
-}
-start()
+exports.render = serverless(app)

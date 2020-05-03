@@ -1,3 +1,5 @@
+const express = require('express')
+
 module.exports = {
   mode: 'universal',
   /*
@@ -20,6 +22,14 @@ module.exports = {
    ** Customize the progress-bar color
    */
   loading: { color: '#fff' },
+  serverMiddleware: [express.json()],
+  render: {
+    // ドキュメントでは object になってるが関数を定義すると独自のミドルウェアに置き換わる
+    compressor: (req, res, next) => {
+      // なにもしなければ圧縮はされない
+      next()
+    }
+  },
   /*
    ** Global CSS
    */
@@ -29,6 +39,13 @@ module.exports = {
    */
   plugins: [],
   srcDir: 'client/',
+
+  router: {
+    base: '/dev/'
+  },
+  // router: {
+  //   base: '/dev/',
+  // }
   /*
    ** Nuxt.js dev-modules
    */
