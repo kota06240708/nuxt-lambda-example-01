@@ -5,9 +5,10 @@
   "author": "市川功太",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "dev": "cross-env NODE_ENV=development nodemon server/local.js --watch server",
     "build": "cross-env NODE_ENV=production nuxt build",
-    "start": "cross-env NODE_ENV=production node server/index.js",
+    "start": "cross-env NODE_ENV=production node server/local.js",
+    "deploy": "yarn build && sls deploy --stage dev",
     "generate": "nuxt generate"
   },
   "dependencies": {
