@@ -40,9 +40,9 @@ module.exports = {
   plugins: [],
   srcDir: 'client/',
 
-  router: {
-    base: '/dev/'
-  },
+  // router: {
+  //   base: '/dev/'
+  // },
   // router: {
   //   base: '/dev/',
   // }

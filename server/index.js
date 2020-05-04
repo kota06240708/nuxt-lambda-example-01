@@ -24,7 +24,7 @@ app.use('/static', (req, res) =>
 app.use(async (req, res, next) => {
   await nuxt.ready()
 
-  req.url = `${nuxtConfig.router.base}${req.url}`.replace('//', '/')
+  // req.url = `${nuxtConfig.router.base}${req.url}`.replace('//', '/')
   nuxt.render(req, res, next)
 })
 

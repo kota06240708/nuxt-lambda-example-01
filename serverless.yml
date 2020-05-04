@@ -6,6 +6,8 @@ provider:
   runtime: nodejs10.x
   stage: ${opt:stage, 'dev'}
   region: ap-northeast-1
+  apiKeys:
+    - name: nuxt-serverless-test-dev-key
   environment:
     NODE_ENV: production
     BUCKET_NAMESPACE: nuxt-serverless-test # 3. Specify a new AWS S3 bucket namespace for bundled assets and static assets (should be unique)
