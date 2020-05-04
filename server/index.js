@@ -25,9 +25,6 @@ app.use(async (req, res, next) => {
   await nuxt.ready()
 
   req.url = `${nuxtConfig.router.base}${req.url}`.replace('//', '/')
-
-  console.log(`うんこ`)
-  console.log(`${req.url}`)
   nuxt.render(req, res, next)
 })
 
